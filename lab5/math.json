@@ -1,0 +1,42 @@
+{
+  "operations" : [
+    {
+      "operation" : "addition",
+      "args" : [5, 6]
+    },
+    {
+      "operation" : "adition",
+      "args" : [5, 6]
+    },
+    {
+      "operation" : "multiplication",
+      "args" : [3, 4]
+    },
+    {
+      "operation" : "multiplication",
+      "args" : [3]
+    },
+    {
+      "operation" : "division",
+      "dividend" : 12,
+      "divisor" : 0
+    },
+    {
+      "operation" : "division",
+      "dividend" : 49,
+      "divisor" : 7
+    },
+    {
+      "operation" : "subtraction",
+      "minued" : 9,
+      "subtrahend" : 2
+    },
+    {
+      "operation" : "subtraction",
+      "minued" : 9
+    },
+    {
+      "operation" : "<script>alert('xss')</script>"
+    }
+  ]
+}

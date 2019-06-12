@@ -1,0 +1,94 @@
+<!-- /*
+  1. Menu klikalne dla 720p+, rozwijane dla 720p-
+  2. Tytuł
+  3. 3 kolumny z obrazkami, chowające się do pionu przy małym ekranie
+  4. stopka
+  5. animacja nad obrazkiem
+  */-->
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laby JS 1</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="sheet.css" />
+</head>
+<body>
+<div class="top-bar" id="example-menu">
+    <div id="responsive-menu" class="top-bar-left">
+        <ul class="dropdown vertical medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown" data-auto-height="true" data-animate-height="true">
+            <li class="menu-text" data-hide-for="medium">Dziekanat</li>
+            <li><a href="#">Stacjonarne</a></li>
+            <li><a href="#">Niestacjonarne</a></li>
+        </ul>
+    </div>
+</div>
+<div class="title-bar" data-responsive-toggle="responsive-menu" data-hide-for="medium">
+    <button class="menu-icon" type="button" data-toggle></button>
+    <div class="title-bar-title">Menu</div>
+</div>
+<h1>Wydział IET</h1>
+<div class="grid-container">
+    <div class="grid-x grid-padding-x small-up-1 medium-up-3">
+        <div class="cell">
+            <div class="card">
+                <div class="card-divider">
+                    <h4>Informatyka</h4>
+                </div>
+                <div class="card-divider animated">
+                    <p>animacja</p>
+                </div>
+                <img src="student.jpg"  class="img-responsive float-center">
+                <div class="card-section">
+                    <h4>Lorem Ipsum</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec metus nisl, lacinia eu vulputate a, faucibus non dolor.</p>
+                </div>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="card">
+                <div class="card-divider">
+                    <h4>Teleinformatyka</h4>
+                </div>
+                <div class="card-divider animated">
+                    <p>animacja</p>
+                </div>
+                <img src="student.jpg"  class="img-responsive float-center">
+                <div class="card-section">
+                    <h4>Lorem Ipsum</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec metus nisl, lacinia eu vulputate a, faucibus non dolor.</p>
+                </div>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="card">
+                <div class="card-divider">
+                    <h4>Elektronika</h4>
+                </div>
+                <div class="card-divider animated">
+                    <p>animacja</p>
+                </div>
+                <img src="student.jpg"  class="img-responsive float-center">
+                <div class="card-section">
+                    <h4>Lorem Ipsum</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec metus nisl, lacinia eu vulputate a, faucibus non dolor.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="row">
+        <a href="mailto:twoj.adres.email">Grzegorz Niedziela</a>
+    </div>
+</footer>
+<script src="js/vendor/jquery.js"></script>
+<script src="js/vendor/what-input.js"></script>
+<script src="js/vendor/foundation.min.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>

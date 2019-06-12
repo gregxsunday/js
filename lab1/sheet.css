@@ -1,0 +1,50 @@
+.azure {
+	background-color: #eeffff;
+ 	box-shadow: 0 0 2px #000;
+ 	border: 1px #000000;
+ 	border-style: solid;
+ 	margin: 10px;
+}
+
+aside  {
+	float: right;
+	width: 400px;
+	position: relative;
+	top: -80px;
+	line-height: 15px;
+}
+footer {
+ 
+}
+@media screen and (max-width: 768px){
+	header {
+		color: blue;
+		transition: color 1s;
+}	
+}      
+@media screen and (max-width: 992px) and (min-width: 768px){
+	header {
+		color: red;
+		transition: color 1s;
+}
+@media screen and (min-width: 992px){
+	header {
+		color: black;
+		transition: color 1s;
+}			
+}     
+   
+main { 
+  width: 400px;
+  padding: 10px;
+  padding-top: 0px;
+}
+nav {
+	width: 120px;  
+}
+nav ul {
+
+}
+nav li {
+  
+}

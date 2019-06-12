@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Dates
+    </title>
+    <script>
+      function getLocalDate(){
+        let now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        if (month < 10){
+          month = '0' + month;
+        }
+        let day = now.getDate();
+        if (day < 10){
+          day = '0' + day;
+        }
+        let hour = now.getHours();
+        if (hour < 10){
+          hour = '0' + hour;
+        }
+        let minutes = now.getMinutes();
+        if (minutes < 10){
+          minutes = '0' + minutes;
+        }
+        let seconds = now.getSeconds();
+        if (seconds < 10){
+          seconds = '0' + seconds;
+        }
+        let res = hour + ":" + minutes + ":" + seconds + " " + day + "." + month + "." + year;
+        console.log(res);
+        let span = document.getElementById("localDate");
+        span.textContent = res;
+      }
+
+      function getShanghaiDate(){
+        var xhr = new XMLHttpRequest();
+
+        // Registration of a (user) function that will process the response received from the server
+        xhr.onreadystatechange = () => response(xhr);
+
+        // Execution of the (asynchronous) query to the web server
+        // xhr.open('GET', '/submit?' + params, true);
+        xhr.open('GET', '/date', true);
+        xhr.send();
+      }
+
+      function response(xhr){
+        try {
+          if (xhr.readyState == XMLHttpRequest.DONE) { // If the response is ready
+            if (xhr.status == 200){                    // If requst was correct
+
+               // If the data you receive is a plain text or a JSON document, use the following code
+               var received_data = xhr.responseText; // Get a response in the form of a string
+               let span = document.getElementById("ShanghaiDate");
+               span.textContent = received_data;
+
+               // If the data you receive is an HTML or XML document, use the following code
+               //var xmlDoc = xhr.responseXML; //Receive the answer in the form of object 'XmlDocument', which can be accessed using DOM methods - see https://www.w3.org/TR/domcore/
+            }
+            else
+               window.alert('There was a problem with this request.');
+          }
+        }
+        catch(e) {
+          window.alert('Exception caught: ' + e.description);
+        }
+     }
+
+      setInterval(getLocalDate, 1000);
+      setInterval(getShanghaiDate, 1000);
+    </script>
+  </head>
+  <body>
+    <p>Data lokalna: <span id="localDate"></span></p>
+    <p>Asia/Shanghai: <span id="ShanghaiDate"></span></p>
+  </body>
+</html>

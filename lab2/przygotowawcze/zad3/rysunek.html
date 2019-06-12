@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Page title
+    </title>
+</head>
+<body>
+<main>
+    <h1>
+        Płótno
+    </h1>
+
+    <h1>
+        Canvas
+    </h1>
+
+    <canvas id="canvas"
+            width="200"
+            height="300"
+            style="border:1px solid #000000;">
+        Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+    </canvas>
+
+    <canvas id="circle"
+            width="200"
+            height="300">
+        Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+    </canvas>
+
+    <canvas id="rect"
+            width="300"
+            height="300">
+        Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+    </canvas>
+
+    <canvas id="triangle"
+            width="300"
+            height="300">
+        Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+    </canvas>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.font = "25px Georgia";
+        ctx.fillText("Hello World", 10, 50); //Wykreślenie podanego tekstu na płótnie / Drawing given text on canvas
+
+        var c = document.getElementById("circle");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(100, 100, 100, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        var c = document.getElementById("rect");
+        var ctx = c.getContext("2d");
+        ctx.rect(20, 20, 250, 150);
+        ctx.stroke();
+
+        var canvas = document.getElementById('triangle');
+        if (canvas.getContext) {
+            var ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.moveTo(150, 50);
+            ctx.lineTo(50, 150);
+            ctx.lineTo(250, 150);
+            ctx.lineTo(150, 50);
+            ctx.stroke();
+        }
+    </script>
+</main>
+</body>
+</html>

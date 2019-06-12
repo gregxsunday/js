@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Form
+    </title>
+    <script>
+      /*****************************************************************/
+      /* Function that performs (asynchronous) query to the web server */
+      /*****************************************************************/
+      function requestAJAX() {
+        let name = encodeURIComponent(document.getElementById('name').value);
+        let params = 'imie=' + name;
+        // Create an object representing the request to the web server - see https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Registration of a (user) function that will process the response received from the server
+        xhr.onreadystatechange = () => response(xhr);
+
+        // Execution of the (asynchronous) query to the web server
+        // xhr.open('GET', '/submit?' + params, true);
+        xhr.open('POST', '/submit', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+        // Examples of the use of the above methods - see https://www.w3schools.com/xml/ajax_xmlhttprequest_send.asp
+      }
+
+      /************************************************************/
+      /* The function that processes the response from the server */
+      /************************************************************/
+      function response(xhr){
+        try {
+          if (xhr.readyState == XMLHttpRequest.DONE) { // If the response is ready
+            if (xhr.status == 200){                    // If requst was correct
+
+               // If the data you receive is a plain text or a JSON document, use the following code
+               var received_data = xhr.responseText; // Get a response in the form of a string
+               window.alert(received_data);          // and display it
+
+               // If the data you receive is an HTML or XML document, use the following code
+               //var xmlDoc = xhr.responseXML; //Receive the answer in the form of object 'XmlDocument', which can be accessed using DOM methods - see https://www.w3.org/TR/domcore/
+            }
+            else
+               window.alert('There was a problem with this request.');
+          }
+        }
+        catch(e) {
+          window.alert('Exception caught: ' + e.description);
+        }
+     }
+
+
+      /*****************************************************************/
+      /* Function that performs (asynchronous) query to the web server */
+      /*****************************************************************/
+      function requestFetchAPI() {
+        let name = encodeURIComponent(document.getElementById('name').value);
+        // fetch('/submit?imie=' + name, {method: 'GET'}) // Execution of the (asynchronous) query to the web server - a promise is created
+        //   .then(function(response) { // if the promise is fulfilled
+        //     if (!response.ok) {
+        //       throw Error(response.statusText);
+        //     }
+        //     response.text().then(function(data){
+        //       window.alert(data);
+        //     });
+        //    // window.alert(response.text()); //show the Promise object
+        //   })
+        //   .catch(function(error) { // if the promise is rejected
+        //     window.alert('Looks like there was a problem: \n', error);
+        //   });
+
+          fetch('/submit', {method: 'POST', body: 'imie=' + name}) // Execution of the (asynchronous) query to the web server - a promise is created
+            .then(function(response) { // if the promise is fulfilled
+              if (!response.ok) {
+                throw Error(response.statusText);
+              }
+              response.text().then(function(data){
+                window.alert(data);
+              });
+             // window.alert(response.text()); //show the Promise object
+            })
+            .catch(function(error) { // if the promise is rejected
+              window.alert('Looks like there was a problem: \n', error);
+            });
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <form method="post"
+            action="/submit">
+        <label>Perform a query to the web server</label>
+        <input type='textarea' name='imie' id='name'/>
+        <input type="submit" value="Without using AJAX">
+        <input type="button" value="Using AJAX" onclick="requestAJAX()">
+        <input type="button" value="Using Fetch API" onclick="requestFetchAPI()">
+      </form>
+    </main>
+    </html>
+  </body>

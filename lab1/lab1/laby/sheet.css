@@ -1,0 +1,28 @@
+footer{
+	background-color: lightgrey;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px; 
+}
+
+.img-responsive {
+	display: block;
+	height: auto;
+	width: auto;
+	max-width: 181px;
+	max-height: 279px;
+}
+
+@keyframes animation {
+	0%, 100% {top: 0; transform: rotate(0deg)}
+	25%, 75% {top: 228px; transform: rotate(45deg)}
+	50% {top: 456px; transform: rotate(0deg)}
+}
+
+.animated{
+	position: relative;
+	animation-name: animation;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}

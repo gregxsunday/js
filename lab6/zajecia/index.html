@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Form
+    </title>
+    <script>
+      /*****************************************************************/
+      /* Function that performs (asynchronous) query to the web server */
+      /*****************************************************************/
+      function requestColors() {
+        let name = encodeURIComponent(document.getElementById('n').value);
+        let params = 'n=' + name;
+        // Create an object representing the request to the web server - see https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Registration of a (user) function that will process the response received from the server
+        xhr.onreadystatechange = () => responseColors(xhr);
+
+        // Execution of the (asynchronous) query to the web server
+        // xhr.open('GET', '/submit?' + params, true);
+        xhr.open('POST', '/colors', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+
+        // Examples of the use of the above methods - see https://www.w3schools.com/xml/ajax_xmlhttprequest_send.asp
+      }
+      var colors = [];
+      var c;
+      var ctx = [];
+      var last_x = [];
+      var last_y = [];
+      var n;
+
+      function drawPoints(){
+        requestColors();
+        n = document.getElementById('n').value;
+        c = document.getElementById("myCanvas");
+        for (let i = 0; i < parseInt(n, 10); i++){
+            ctx.push(c.getContext("2d"));
+            last_x.push(0);
+            last_y.push(0);
+            ctx[i].beginPath();
+            ctx[i].moveTo(0, 0);    
+        }
+        setInterval(draw_all, 1000);
+        // ctx = c.getContext("2d");
+        // ctx.beginPath();
+        // ctx.moveTo(0, 0);
+      }
+
+      function draw_all(){
+        for (let i = 0; i < parseInt(n, 10); i++){
+            requestPoint(i);
+        }
+      }
+
+      function requestPoint(i){
+        var xhr = new XMLHttpRequest();
+
+        // Registration of a (user) function that will process the response received from the server
+        xhr.onreadystatechange = () => responsePoint(xhr, i);
+
+        // Execution of the (asynchronous) query to the web server
+        // xhr.open('GET', '/submit?' + params, true);
+        xhr.open('POST', '/point', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send();
+      }
+
+
+      function responsePoint(xhr, i){
+        try {
+          if (xhr.readyState == XMLHttpRequest.DONE) { // If the response is ready
+            if (xhr.status == 200){                    // If requst was correct
+
+               // If the data you receive is a plain text or a JSON document, use the following code
+               var received_data = xhr.responseText; // Get a response in the form of a string
+            //    console.log(received_data);          // and display it
+               let point = received_data;
+               let points = JSON.parse(point);
+               let x = points['x'];
+               let y = points['y'];
+               console.log(x);
+               console.log(y);
+               ctx[i].beginPath();
+               ctx[i].moveTo(last_x[i], last_y[i]);    
+               ctx[i].lineTo(parseInt(x, 10), parseInt(y, 10));
+               ctx[i].strokeStyle = colors[i];
+               ctx[i].stroke();
+               last_x[i] = x;
+               last_y[i] = y;
+
+
+               // If the data you receive is an HTML or XML document, use the following code
+               //var xmlDoc = xhr.responseXML; //Receive the answer in the form of object 'XmlDocument', which can be accessed using DOM methods - see https://www.w3.org/TR/domcore/
+            }
+            else
+               window.alert('There was a problem with this request.');
+          }
+        }
+        catch(e) {
+          window.alert('Exception caught: ' + e.description);
+        }
+     }
+      /************************************************************/
+      /* The function that processes the response from the server */
+      /************************************************************/
+      function responseColors(xhr){
+        try {
+          if (xhr.readyState == XMLHttpRequest.DONE) { // If the response is ready
+            if (xhr.status == 200){                    // If requst was correct
+
+               // If the data you receive is a plain text or a JSON document, use the following code
+               var received_data = xhr.responseText; // Get a response in the form of a string
+            //    console.log(received_data);          // and display it
+               colors =  received_data.split(',');
+                
+
+
+               // If the data you receive is an HTML or XML document, use the following code
+               //var xmlDoc = xhr.responseXML; //Receive the answer in the form of object 'XmlDocument', which can be accessed using DOM methods - see https://www.w3.org/TR/domcore/
+            }
+            else
+               window.alert('There was a problem with this request.');
+          }
+        }
+        catch(e) {
+          window.alert('Exception caught: ' + e.description);
+        }
+     }
+    </script>
+  </head>
+  <body>
+    <main>
+      <form method="post"
+            action="/submit">
+        <label>Perform a query to the web server</label>
+        <input type='textarea' name='n' id='n'/>
+        <input type="button" value="Using AJAX" onclick="drawPoints()">
+      </form>
+    </main>
+
+    <canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.</canvas>
+
+    </html>
+  </body>
